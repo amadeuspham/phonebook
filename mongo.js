@@ -34,15 +34,15 @@ if (name && number) {
 } else {
   if (!name && !number) {
     Person.find({}).then(result => {
-      console.log("phonebook:")
+      console.log('phonebook:')
       result.forEach(person => {
         console.log(`${person.name} ${person.number}`)
       })
       mongoose.connection.close()
     })
   } else if (!name) {
-    console.log("Please provide a name")
+    console.log('Please provide a name')
   } else if (!number) {
-    console.log("Please provide a number")
+    console.log('Please provide a number')
   }
 }

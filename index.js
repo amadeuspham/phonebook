@@ -1,5 +1,5 @@
 require('dotenv').config()
-const express = require('express');
+const express = require('express')
 const app = express()
 var morgan = require('morgan')
 const cors = require('cors')
@@ -22,8 +22,8 @@ app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
 app.use(morgan(function (tokens, req, res) {
-	const person = req.body
-	const personString = JSON.stringify(person)
+  const person = req.body
+  const personString = JSON.stringify(person)
 
   return [
     tokens.method(req, res),
@@ -31,15 +31,15 @@ app.use(morgan(function (tokens, req, res) {
     tokens.status(req, res),
     tokens.res(req, res, 'content-length'), '-',
     tokens['response-time'](req, res), 'ms',
-    personString === "{}" ? "" : personString,
+    personString === '{}' ? '' : personString,
   ].join(' ')
 }))
 app.use(errorHandler)
 
 app.get('/api/persons', (req, res, next) => {
-	Person.find({}).then(fetchedPersons => {
-		res.json(fetchedPersons)
-	}).catch(error => next(error))
+  Person.find({}).then(fetchedPersons => {
+    res.json(fetchedPersons)
+  }).catch(error => next(error))
 })
 
 app.get('/api/persons/:id', (req, res, next) => {
@@ -47,22 +47,10 @@ app.get('/api/persons/:id', (req, res, next) => {
     if (person) {
       res.json(person.toJSON())
     } else {
-      res.status(404).end() 
+      res.status(404).end()
     }
   }).catch(error => next(error))
 })
-
-const contactValid = (person) => {
-	if (!person.name) {
-		return 1
-	} else if (!person.number) {
-		return 2
-	} else if (persons.find(existing => existing.name === person.name)) {
-		return 3
-	} else {
-		return 0
-	}
-}
 
 app.post('/api/persons', (req, res, next) => {
   const personObj = req.body
@@ -73,10 +61,10 @@ app.post('/api/persons', (req, res, next) => {
   })
 
   person.save()
-  	.then(savedPerson => {
-	    res.json(savedPerson.toJSON())
-	  })
-	  .catch(error => next(error))
+    .then(savedPerson => {
+      res.json(savedPerson.toJSON())
+    })
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (req, res, next) => {
@@ -103,13 +91,13 @@ app.delete('/api/persons/:id', (req, res, next) => {
 })
 
 app.get('/api/info', (req, res, next) => {
-	Person.countDocuments({})
-		.then(personsNum => {
-			const info = `Phonebook has info for ${personsNum} people <br/>`
-			const date = new Date
-		  res.send(info + date)
-		})
-		.catch(error => next(error))
+  Person.countDocuments({})
+    .then(personsNum => {
+      const info = `Phonebook has info for ${personsNum} people <br/>`
+      const date = new Date
+      res.send(info + date)
+    })
+    .catch(error => next(error))
 })
 
 const PORT = process.env.PORT
