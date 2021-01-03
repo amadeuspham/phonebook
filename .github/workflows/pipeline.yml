@@ -38,11 +38,14 @@ jobs:
           rollbackonhealthcheckfailed: true
       - uses: actions/checkout@v2
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message ,', '), '#skip') }}
+        with:
+          fetch-depth: '0'
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_BRANCHES: main
       - name: Slack notification
         uses: 8398a7/action-slack@v3
         if: ${{ (success() && github.event_name == 'push') || failure() }}
