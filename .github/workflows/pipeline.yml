@@ -33,7 +33,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "amadeusphonebook-backend" 
           heroku_email: "scramblegf@gmail.com"
-          healthcheck: 'https://amadeusphonebook-backend.herokuapp.com/'
+          healthcheck: 'https://amadeusphonebook-backend.herokuapp.com/health'
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
       - name: Bump version and push tag
