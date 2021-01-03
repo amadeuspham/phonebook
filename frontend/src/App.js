@@ -202,7 +202,7 @@ const App = () => {
         newPhone={newPhone}
         handlePhoneChange={handlePhoneChange}
       />
-      <h2>Numbers</h2>
+      <h2>Phone numbers</h2>
       <Persons 
         filtering={filterStatus.filtering} 
         filteredContacts={filteredContacts} 
