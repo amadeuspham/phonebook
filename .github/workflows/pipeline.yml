@@ -33,7 +33,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "amadeusphonebook" 
           heroku_email: "scramblegf@gmail.com"
-          appdir: "frontend/build"
+          appdir: "frontend"
           healthcheck: "https://amadeusphonebook.herokuapp.com/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
