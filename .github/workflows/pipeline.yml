@@ -36,6 +36,8 @@ jobs:
           healthcheck: 'https://amadeusphonebook-backend.herokuapp.com/health'
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
+      - uses: actions/checkout@v2
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message ,', '), '#skip') }}
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') }}
