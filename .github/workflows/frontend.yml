@@ -1,4 +1,4 @@
-name: Frontend deployment pipeline
+name: Frontend pipeline
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  frontend_deployment_pipeline:
+  frontend_pipeline:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -20,22 +20,5 @@ jobs:
         run: npm run frontend:install
       - name: Frontend lint
         run: npm run frontend:lint
-      - name: Frontend build
-        run: npm run frontend:build
       - name: Frontend test
         run: npm run frontend:test
-      - name: deploy
-        uses: akhileshns/heroku-deploy@v3.8.8
-        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') }}
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "amadeusphonebook" 
-          heroku_email: "scramblegf@gmail.com"
-          appdir: "frontend"
-      - uses: actions/checkout@v2
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
-        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: patch
