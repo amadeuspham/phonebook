@@ -19,7 +19,7 @@ const errorHandler = (error, req, res, next) => {
 }
 
 app.use(cors())
-app.use(express.static('build'))
+app.use(express.static('frontend/build'))
 app.use(express.json())
 app.use(morgan(function (tokens, req, res) {
   const person = req.body
